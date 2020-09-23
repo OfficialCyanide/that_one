@@ -2,6 +2,7 @@
 
 #include "../base/controls.h"
 #include "../style/styles.h"
+#include <memory>
 
 enum class e_mb {
   null,
@@ -24,57 +25,53 @@ enum class e_focus {
 
 
 class Menu {
- public:
+public:
   bool enabled = false;
-  
+
   bool mouseOver( int x, int y, int w, int h );
   POINT mouse{ 0, 0 }, pmouse{ 0, 0 };
-  
+
   e_mb mb = e_mb::null;
   e_mw mw = e_mw::null;
   inline int GetFocus() {
     return focus;
   }
-  
+
   void Draw();
   void CreateGUI();
-  
-  void OpenDialog( Dialog &dlg );
+
+  void OpenDialog( Dialog& dlg );
   void CloseDialog( size_t Index );
   inline bool IsDialogOpen() {
     return dialogs.size();
   }
-  
+
   void GetInput();
   void EndInput();
-  
-  WindowStyle *style = new DefaultStyle();
-  
-  WNDPROC windowProc;
-  
+
+  std::shared_ptr<WindowStyle> style = std::make_shared<DefaultStyle>();
+
   // - Store flags for all keys.
   // - The largest integers can't hold 256 flags, so we use an array
   byte keys[256];
-  
+
   // - Virtual key of the newest index
   // - Also the index to find that key in keys[]
   byte last_key = NULL;
-  
+
   // - Indicates a keypress for one frame
   byte key = NULL;
-  
-  inline const TabGroup *GetTabs() {
+
+  inline const TabGroup* GetTabs() {
     return &Tabs;
   }
- private:
+private:
   int focus = 0;
-  vector<Dialog *> dialogs;
-  
+  std::vector<Dialog*> dialogs;
+
   // - Set the starting position and menu scale
   POINT pos = { 100, 100 }, scale = { 575, 500 };
-  
+
   TabGroup Tabs;
 };
 extern Menu gMenu;
-
-LRESULT __stdcall Hooked_WndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam );

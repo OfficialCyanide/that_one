@@ -19,9 +19,9 @@ enum FontFlags {
   FONTFLAG_BITMAP = 0x800,
 };
 
-#define ESP_HEIGHT 14
+constexpr int ESP_HEIGHT = 14;
 class CFonts {
- public:
+public:
   void Initialize();
   void Reload();
   HFont anon;
@@ -34,44 +34,44 @@ class CFonts {
 extern CFonts gFonts;
 
 class CTextures {
- public:
+public:
   void Initialize();
   void Reload();
-  
+
   HTexture dark_gray;
 };
 extern CTextures gTex;
 
 class TextureHolder {
- public:
+public:
   TextureHolder() {}
-  TextureHolder( const byte *pRawRGBAData, int W, int H );
-  
+  TextureHolder( const byte* pRawRGBAData, int W, int H );
+
   bool IsValid() const {
     return m_bValid;
   }
-  
+
   int GetTextureId() const {
     return m_iTexture;
   }
-  
+
   int GetWidth() const {
     return m_iW;
   }
-  
+
   int GetHeight() const {
     return m_iH;
   }
-  
-  const byte *GetRGBA() const {
+
+  const byte* GetRGBA() const {
     return rawData;
   }
-  
+
   bool Draw( int x, int y, Color clr = Color( 255 ), float scale = 1.0 );
-  
- protected:
+
+protected:
   int m_iTexture;
   int m_iW, m_iH;
-  const byte *rawData;
+  const byte* rawData;
   bool m_bValid;
 };

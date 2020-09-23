@@ -3,11 +3,11 @@
 class IMaterial;
 
 namespace Materials {
-  extern IMaterial *shaded, *glow;
+  extern IMaterial* shaded, * glow;
   void Initialize();
-  
-  IMaterial *CreateMaterial( bool Flat );
+
+  IMaterial* CreateMaterial( bool Flat );
   void ResetMaterial();
-  
-  void ForceMaterial( IMaterial *material, Color color );
+
+  void ForceMaterial( IMaterial* material, Color color );
 }

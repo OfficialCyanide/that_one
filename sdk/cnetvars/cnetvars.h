@@ -9,21 +9,21 @@
 class CNetVars {
   struct node;
   using map_type = std::unordered_map<std::string, std::shared_ptr<node>>;
-  
+
   struct node {
     node( DWORD offset ) : offset( offset ) {}
     map_type nodes;
     DWORD offset;
   };
-  
+
   map_type nodes;
-  
- public:
+
+public:
   void Initialize();
-  
- private:
-  void populate_nodes( class RecvTable *recv_table, map_type *map );
-  
+
+private:
+  void populate_nodes( class RecvTable* recv_table, map_type* map );
+
   /**
   * get_offset_recursive - Return the offset of the final node
   * @map: Node map to scan
@@ -32,10 +32,10 @@ class CNetVars {
   *
   * Get the offset of the last netvar from map and return the sum of it and accum
   */
-  DWORD get_offset_recursive( map_type &map, int acc, const char *name ) {
+  DWORD get_offset_recursive( map_type& map, int acc, const char* name ) {
     return acc + map[name]->offset;
   }
-  
+
   /**
   * get_offset_recursive - Recursively grab an offset from the tree
   * @map: Node map to scan
@@ -47,12 +47,12 @@ class CNetVars {
   * and the offset of that branch added to acc
   */
   template<typename ...args_t>
-  DWORD get_offset_recursive( map_type &map, int acc, const char *name, args_t ...args ) {
-    const auto &node = map[name];
+  DWORD get_offset_recursive( map_type& map, int acc, const char* name, args_t ...args ) {
+    const auto& node = map[name];
     return get_offset_recursive( node->nodes, acc + node->offset, args... );
   }
-  
- public:
+
+public:
   /**
   * get_offset - Get the offset of a netvar given a list of branch names
   * @name:  Top level datatable name
@@ -61,8 +61,8 @@ class CNetVars {
   * Initiate a recursive search down the branch corresponding to the specified datable name
   */
   template<typename ...args_t>
-  DWORD get_offset( const char *name, args_t ...args ) {
-    const auto &node = nodes[name];
+  DWORD get_offset( const char* name, args_t ...args ) {
+    const auto& node = nodes[name];
     return get_offset_recursive( node->nodes, node->offset, args... );
   }
 };
@@ -72,8 +72,8 @@ extern CNetVars gNetVars;
 template<typename T>
 class CDynamicNetvar {
   DWORD off;
-  
- public:
+
+public:
   template<typename... args_t>
   CDynamicNetvar( args_t... a ) {
     // just assume these wont be accessed until after netvars has been inited
@@ -83,12 +83,12 @@ class CDynamicNetvar {
   CDynamicNetvar( int offset, args_t... a ) {
     off = gNetVars.get_offset( a... ) + offset;
   }
-  
+
   T GetValue( PVOID base ) {
-    return *reinterpret_cast<T *>( ( DWORD )base + ( DWORD )off );
+    return *reinterpret_cast<T*>( (DWORD)base + (DWORD)off );
   }
   void SetValue( PVOID base, T val ) {
-    *reinterpret_cast<T *>( ( DWORD )( base ) + ( ( DWORD )( off ) ) ) = val;
+    *reinterpret_cast<T*>( (DWORD)(base)+( (DWORD)( off ) ) ) = val;
   }
 };
 

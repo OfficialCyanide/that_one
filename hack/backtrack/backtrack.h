@@ -21,29 +21,29 @@ namespace Backtrack {
   template<typename T> constexpr T clamp( T val, T  min, T max ) {
     return ( ( ( val ) > ( max ) ) ? ( max ) : ( ( ( val ) < ( min ) ) ? ( min ) : ( val ) ) );
   }
-  
-  void collect_tick( CBaseEntity *pLocal );
+
+  void collect_tick( CBaseEntity* pLocal );
   float lerp_time();
-  void cache_INetChannel( INetChannel *ch );
+  void cache_INetChannel( INetChannel* ch );
   bool is_tick_valid( float simtime );
-  
-  const inline void Run( CBaseEntity *pLocal, INetChannel *ch ) {
-    if( gCvars.Backtrack.value ) {
+
+  const inline void Run( CBaseEntity* pLocal, INetChannel* ch ) {
+    if( Global.Backtrack.value ) {
       collect_tick( pLocal );
       cache_INetChannel( ch );
     }
   };
-  
+
   struct CachedINetChannel {
     float flow_incoming;
     float flow_outgoing;
     float lerptime;
     CachedINetChannel() = default;
-    CachedINetChannel( INetChannel *ch ) {
+    CachedINetChannel( INetChannel* ch ) {
       flow_incoming = ch->GetAvgLatency( FLOW_INCOMING );
       flow_outgoing = ch->GetAvgLatency( FLOW_OUTGOING );
       lerptime = lerp_time();
     }
   };
-  
+
 }

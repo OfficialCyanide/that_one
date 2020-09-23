@@ -72,7 +72,7 @@ enum weaponid {
   Scout_t_BatR = 190,
   Scout_t_TheSandman = 44,
   Scout_t_TheHolyMackerel = 221,
-  
+
   Scout_t_TheCandyCane = 317,
   Scout_t_TheBostonBasher = 325,
   Scout_t_SunonaStick = 349,
@@ -88,7 +88,7 @@ enum weaponid {
   Scout_t_TheMemoryMaker = 954,
   Scout_t_FestiveHolyMackerel = 999,
   Scout_t_TheHamShank = 1013,
-  
+
   Scout_t_TheNecroSmasher = 1123,
   Scout_t_TheCrossingGuard = 1127,
   Scout_t_Batsaber = 30667,
@@ -154,7 +154,7 @@ enum weaponid {
   Soldier_t_ShovelR = 196,
   Soldier_t_TheEqualizer = 128,
   Soldier_t_ThePainTrain = 154,
-  
+
   Soldier_t_TheHalfZatoichi = 357,
   Soldier_t_TheMarketGardener = 416,
   Soldier_t_TheDisciplinaryAction = 447,
@@ -227,7 +227,7 @@ enum weaponid {
   Pyro_t_TheAxtinguisher = 38,
   Pyro_t_Homewrecker = 153,
   Pyro_t_ThePowerjack = 214,
-  
+
   Pyro_t_TheBackScratcher = 326,
   Pyro_t_SharpenedVolcanoFragment = 348,
   Pyro_t_ThePostalPummeler = 457,
@@ -379,7 +379,7 @@ enum weaponid {
   Heavy_t_FistsR = 195,
   Heavy_t_TheKillingGlovesofBoxing = 43,
   Heavy_t_GlovesofRunningUrgently = 239,
-  
+
   Heavy_t_WarriorsSpirit = 310,
   Heavy_t_FistsofSteel = 331,
   Heavy_t_TheEvictionNotice = 426,
@@ -508,7 +508,7 @@ enum weaponid {
   Medic_t_BonesawR = 198,
   Medic_t_TheUbersaw = 37,
   Medic_t_TheVitaSaw = 173,
-  
+
   Medic_t_Amputator = 304,
   Medic_t_TheSolemnVow = 413,
   Medic_t_TheConscientiousObjector = 474,
@@ -582,7 +582,7 @@ enum weaponid {
   Sniper_t_KukriR = 193,
   Sniper_t_TheTribalmansShiv = 171,
   Sniper_t_TheBushwacka = 232,
-  
+
   Sniper_t_TheShahanshah = 401,
   Sniper_t_TheConscientiousObjector = 474,
   Sniper_t_TheFreedomStaff = 880,
@@ -662,5 +662,5 @@ enum weaponid {
   Misc_t_FryingPan = 264,
   Misc_t_GoldFryingPan = 1071,
   Misc_t_Saxxy = 423,
-  
+
 };

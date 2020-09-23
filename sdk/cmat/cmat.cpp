@@ -1,18 +1,18 @@
 #include "cmat.h"
 #include "keyvalues.h"
 namespace Materials {
-  IMaterial *shaded, *glow;
-  
+  IMaterial* shaded, * glow;
+
   void  Initialize() {
-    glow = gInts.MatSystem->FindMaterial( "dev/glow_color", "Model textures" );
+    glow = Int::MatSystem->FindMaterial( "dev/glow_color", "Model textures" );
     glow->IncrementReferenceCount();
     shaded = CreateMaterial( false );
   }
-  
-  IMaterial *CreateMaterial( bool flat ) {
+
+  IMaterial* CreateMaterial( bool flat ) {
     static int created = 0;
-    string type = flat ? "UnlitGeneric" : "VertexLitGeneric";
-    const string data = "\""s + type + R"#(" {
+    std::string type = flat ? "UnlitGeneric" : "VertexLitGeneric";
+    const std::string data = std::string( "\"" ) + type + std::string( R"#(" {
       "$basetexture" "vgui/white_additive"
       "$envmap" ""
       "$model" "1"
@@ -24,39 +24,39 @@ namespace Materials {
       "$znearer" "0"
       "$wireframe" "0"
       "$ignorez" "0"
-    })#"s;
-    const string name = "#mat_"s + to_string( created ) + ".vmt"s;
+    })#" );
+    const std::string name = std::string( "#mat_" ) + std::to_string( created ) + std::string( ".vmt" );
     created++;
-    KeyValues *keyValues = new KeyValues;
-    keyValues->Initialize( keyValues, const_cast<char *>( type.c_str() ) );
+    KeyValues* keyValues = new KeyValues;
+    keyValues->Initialize( keyValues, const_cast<char*>( type.c_str() ) );
     keyValues->LoadFromBuffer( keyValues, name.c_str(), data.c_str() );
-    IMaterial *createdMaterial = gInts.MatSystem->CreateMaterial( name.c_str(), keyValues );
-    
+    IMaterial* createdMaterial = Int::MatSystem->CreateMaterial( name.c_str(), keyValues );
+
     if( !createdMaterial ) {
       return nullptr;
     }
-    
+
     createdMaterial->IncrementReferenceCount();
     return createdMaterial;
   }
-  
+
   void  ResetMaterial() {
     static const float flDefault[3] = { 1, 1, 1 };
-    gInts.RenderView->SetBlend( 1 );
-    gInts.RenderView->SetColorModulation( flDefault );
-    gInts.MdlRender->ForcedMaterialOverride( nullptr );
+    Int::RenderView->SetBlend( 1 );
+    Int::RenderView->SetColorModulation( flDefault );
+    Int::MdlRender->ForcedMaterialOverride( nullptr );
   }
-  
-  void ForceMaterial( IMaterial *material, Color color ) {
+
+  void ForceMaterial( IMaterial* material, Color color ) {
     if( material ) {
       float base[3];
       base[0] = color[0] / 255.0f;
       base[1] = color[1] / 255.0f;
       base[2] = color[2] / 255.0f;
       float alpha = color[3] / 255.0f;
-      gInts.RenderView->SetBlend( alpha );
-      gInts.RenderView->SetColorModulation( base );
-      gInts.MdlRender->ForcedMaterialOverride( material );
+      Int::RenderView->SetBlend( alpha );
+      Int::RenderView->SetColorModulation( base );
+      Int::MdlRender->ForcedMaterialOverride( material );
     }
   }
 }

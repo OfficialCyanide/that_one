@@ -9,16 +9,11 @@ struct Shots {
 };
 
 class CEvents : public IGameEventListener2 {
- public:
- 
+public:
+
   void InitEvents();
   void UndoEvents();
-
-  ~CEvents() {
-    UndoEvents();
-  }
-
-  void FireGameEvent( IGameEvent *event );
+  void FireGameEvent( IGameEvent* event );
 };
 
 extern CEvents gEvents;
